@@ -1,36 +1,36 @@
-(ns aoc2024.day01
+(ns aoc2024.day02
   (:require [clojure.string :as str]
             [hashp.core]))
-
-; juxt - when you need multiple transformations on a single input
-(defn extract-first-last
-  [word-groups]
-  ((juxt #(mapv (fn [x] (-> x first parse-long)) %)
-         #(mapv (fn [x] (-> x last parse-long)) %))
-   word-groups))
 
 (defn parse-input
   [input]
   (->> input
        str/split-lines
-       (map #(str/split % #"\s+"))
-       extract-first-last))
+       (map #(str/split % #" "))
+       (map #(map parse-long %))))
+
+(defn sliding-assert?
+  [pred coll]
+  (every? pred (partition 2 1 coll)))
+
+(defn monotonic?
+  [coll]
+  (or
+   (sliding-assert? #(apply < %) coll)
+   (sliding-assert? #(apply > %) coll)))
+
+(defn bounded-growth?
+  [coll]
+  (sliding-assert? #(<= (abs (apply - %)) 3) coll))
 
 (defn part1
   [input]
   (->> input
        parse-input
-       (map sort)
-       (apply map -)
-       (map abs)
-       (reduce +)))
-
-(defn multiply-by-frequency [freqs x]
-  (* x (get freqs x 0)))
+       (filter (every-pred monotonic? bounded-growth?))
+       count))
 
 (defn part2
   [input]
-  (let [[numbers freqs] (parse-input input) freq-map (frequencies freqs)]
-    (->> numbers
-         (map #(multiply-by-frequency freq-map %))
-         (reduce +))))
+  (->> input
+       parse-input))
