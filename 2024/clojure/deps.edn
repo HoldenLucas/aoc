@@ -1,5 +1,6 @@
 {:paths ["src"]
- :deps {org.clojure/clojure {:mvn/version "1.11.1"}}
+ :deps {org.clojure/clojure {:mvn/version "1.11.1"}
+        hashp/hashp {:mvn/version "0.2.2"}}
 
  :aliases
  {:nrepl
