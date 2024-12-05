@@ -4,8 +4,13 @@
 
 (defn load-input
   "Loads puzzle input from a file"
-  [filename]
-  (slurp filename))
+  [day]
+  (slurp (str "../input/" day ".txt")))
+
+(defn load-example
+  "Loads puzzle example input from a file"
+  [day]
+  (slurp (str "../input/" day ".example.txt")))
 
 (defn load-input-resource
   "Loads puzzle input from resources directory"
