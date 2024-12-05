@@ -9,18 +9,18 @@
 (def INPUT (aio/load-input ID))
 
 (test/deftest parse-input-test
-  (test/testing "parses input into columns of numbers"
+  (test/testing "parses input"
     (test/is (= (d3/parse-input EXAMPLE)
                 "foo"))))
 
 (test/deftest part1-test
-  (test/testing ""
+  (test/testing "solves part 1"
     (test/are [input expected] (= expected (d3/part1 input))
-      EXAMPLE 11
-      INPUT 1222801)))
+      EXAMPLE "bar"
+      INPUT "baz")))
 
 (test/deftest part2-test
-  (test/testing ""
+  (test/testing "solves part 2"
     (test/are [input expected] (= expected (d3/part2 input))
-      EXAMPLE 31
-      INPUT 22545250)))
+      EXAMPLE "qux"
+      INPUT "quux")))
