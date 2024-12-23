@@ -11,12 +11,25 @@
 (test/deftest parse-input-test
   (test/testing "parses input"
     (test/is (= (d08/parse-input EXAMPLE)
-                "foo"))))
+                [[\. \. \. \. \. \. \. \. \. \. \. \.]
+                 [\. \. \. \. \. \. \. \. \0 \. \. \.]
+                 [\. \. \. \. \. \0 \. \. \. \. \. \.]
+                 [\. \. \. \. \. \. \. \0 \. \. \. \.]
+                 [\. \. \. \. \0 \. \. \. \. \. \. \.]
+                 [\. \. \. \. \. \. \A \. \. \. \. \.]
+                 [\. \. \. \. \. \. \. \. \. \. \. \.]
+                 [\. \. \. \. \. \. \. \. \. \. \. \.]
+                 [\. \. \. \. \. \. \. \. \A \. \. \.]
+                 [\. \. \. \. \. \. \. \. \. \A \. \.]
+                 [\. \. \. \. \. \. \. \. \. \. \. \.]
+                 [\. \. \. \. \. \. \. \. \. \. \. \.]]))))
+
+(d08/foo (d08/parse-input EXAMPLE))
 
 (test/deftest part1-test
   (test/testing "solves part 1"
     (test/are [input expected] (= expected (d08/part1 input))
-      EXAMPLE "bar"
+      EXAMPLE 14
       INPUT "baz")))
 
 (test/deftest part2-test

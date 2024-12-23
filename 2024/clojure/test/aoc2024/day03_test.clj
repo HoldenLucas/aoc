@@ -11,13 +11,16 @@
 (test/deftest parse-input-test
   (test/testing "parses input"
     (test/is (= (d3/parse-input EXAMPLE)
-                "foo"))))
+                [["mul" 2 4]
+                 ["mul" 5 5]
+                 ["mul" 11 8]
+                 ["mul" 8 5]]))))
 
 (test/deftest part1-test
   (test/testing "solves part 1"
     (test/are [input expected] (= expected (d3/part1 input))
-      EXAMPLE "bar"
-      INPUT "baz")))
+      EXAMPLE 161
+      INPUT 189600467)))
 
 (test/deftest part2-test
   (test/testing "solves part 2"

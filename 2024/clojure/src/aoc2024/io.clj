@@ -5,12 +5,18 @@
 (defn load-input
   "Loads puzzle input from a file"
   [day]
-  (slurp (str "../input/" day ".txt")))
+  (let [file (io/file (str "../input/" day ".txt"))]
+    (if (.exists file)
+      (slurp file)
+      (throw (Exception. (str "Input file not found: " (.getPath file)))))))
 
 (defn load-example
   "Loads puzzle example input from a file"
   [day]
-  (slurp (str "../input/" day ".example.txt")))
+  (let [file (io/file (str "../input/" day ".example.txt"))]
+    (if (.exists file)
+      (slurp file)
+      (throw (Exception. (str "Example file not found: " (.getPath file)))))))
 
 (defn load-input-resource
   "Loads puzzle input from resources directory"

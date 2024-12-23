@@ -11,7 +11,7 @@
 (test/deftest parse-input-test
   (test/testing "parses input"
     (test/is (= (d05/parse-input EXAMPLE)
-                "foo"))))
+                143))))
 
 (test/deftest part1-test
   (test/testing "solves part 1"

@@ -4,7 +4,8 @@
 
 (defn parse-input
   [input]
-  input)
+  (->> input
+       str/split-lines))
 
 (defn part1
   [input]

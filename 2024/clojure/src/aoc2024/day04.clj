@@ -1,10 +1,11 @@
 (ns aoc2024.day04
-  (:require [clojure.string :as str]
-            [hashp.core]))
+  (:require [hashp.core]
+            [clojure.string :as str]))
 
 (defn parse-input
   [input]
-  input)
+  (->> input
+       str/split-lines))
 
 (defn part1
   [input]

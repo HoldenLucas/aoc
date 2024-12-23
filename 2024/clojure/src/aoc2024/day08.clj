@@ -4,7 +4,19 @@
 
 (defn parse-input
   [input]
-  input)
+  (->> input
+       str/split-lines
+       (map vec)))
+
+(defn foo
+  [input]
+  (map-indexed
+   (fn [ir row]
+     (map-indexed
+      (fn [ic col]
+        [[ir ic] col])
+      row))
+   input))
 
 (defn part1
   [input]
