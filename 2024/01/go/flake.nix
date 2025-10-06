@@ -43,11 +43,14 @@
       in
       {
         devShells.default = pkgs.mkShell {
+          # fixes an error with delve
+          hardeningDisable = [ "fortify" ];
 
           packages =
             with pkgs;
             [
               go
+              delve
               # shantis-app # TODO this builds slowly so direnv is a bad ux
             ]
             ++ scripts;
