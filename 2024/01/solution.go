@@ -7,16 +7,16 @@ import (
 	"strings"
 )
 
-func part1() {
-	file, err := os.ReadFile("./input/2024/01/1.txt")
+func parse(path string) ([]int, []int) {
+	file, err := os.ReadFile(path)
 	if err != nil {
 		panic(err)
 	}
 	input := string(file)
 	lines := strings.Split(input, "\n")
 
-	var lcol []int
-	var rcol []int
+	var llist []int
+	var rlist []int
 	for _, line := range lines {
 		if strings.TrimSpace(line) == "" {
 			continue
@@ -31,33 +31,61 @@ func part1() {
 		if err != nil {
 			panic(err)
 		}
-		lcol = append(lcol, l)
+		llist = append(llist, l)
 
 		r, err := strconv.Atoi(fields[1])
 		if err != nil {
 			panic(err)
 		}
-		rcol = append(rcol, r)
+		rlist = append(rlist, r)
 	}
-	slices.Sort(lcol)
-	slices.Sort(rcol)
+	return llist, rlist
+}
+
+func part1() int {
+	llist, rlist := parse("./input/2024/01.txt")
+
+	slices.Sort(llist)
+	slices.Sort(rlist)
 
 	total := 0
-	for i := range lcol {
-		d := lcol[i] - rcol[i]
-		if d < 0 {
-			d = -d
+	for i := range llist {
+		diff := llist[i] - rlist[i]
+		if diff < 0 {
+			diff = -diff
 		}
-		total += d
+		total += diff
 	}
 
-	if total == 1222801 {
-		print("it worked!")
-	} else {
-		print("not worked!")
+	return total
+}
+
+func part2() int {
+	llist, rlist := parse("./input/2024/01.txt")
+
+	freq := map[int]int{}
+	freq = make(map[int]int)
+	for _, v := range llist {
+		freq[v] = 0
 	}
+
+	for _, v := range rlist {
+		_, exists := freq[v]
+		if exists {
+			freq[v] += 1
+		}
+	}
+
+	sum := 0
+	for _, v := range llist {
+		sum += v * freq[v]
+	}
+
+	return sum
 }
 
 func main() {
-	part1()
+	print(part1())
+	print("\n")
+	print(part2())
 }
