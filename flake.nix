@@ -29,16 +29,9 @@
 
         scripts = nix-utils.lib.mkScripts pkgs (rec {
           dev = ''
-            mprocs ",web-reload" ",styles-watch" ",templ-watch" ",templ-reload"
+            echo foo
           '';
         });
-        aoc-golang-2024 = pkgs.buildGoApplication {
-          pname = "aoc-golang-2024";
-          version = "0.1";
-          pwd = ./.;
-          src = ./.;
-          modules = ./gomod2nix.toml;
-        };
 
       in
       {
@@ -51,7 +44,6 @@
             [
               go
               delve
-              # shantis-app # TODO this builds slowly so direnv is a bad ux
             ]
             ++ scripts;
         };
