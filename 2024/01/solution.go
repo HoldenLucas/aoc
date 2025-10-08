@@ -1,23 +1,20 @@
 package main
 
 import (
-	"os"
 	"slices"
 	"strconv"
 	"strings"
+
+	"github.com/holdenlucas/aoc/lib/go/input"
+	"github.com/holdenlucas/aoc/lib/go/solution"
 )
 
-func parse(path string) ([]int, []int) {
-	file, err := os.ReadFile(path)
-	if err != nil {
-		panic(err)
-	}
-	input := string(file)
-	lines := strings.Split(input, "\n")
+func parse() ([]int, []int) {
+	i := input.LoadLines(2024, 1)
 
 	var llist []int
 	var rlist []int
-	for _, line := range lines {
+	for _, line := range i {
 		if strings.TrimSpace(line) == "" {
 			continue
 		}
@@ -43,25 +40,25 @@ func parse(path string) ([]int, []int) {
 }
 
 func part1() int {
-	llist, rlist := parse("./input/2024/01.txt")
+	llist, rlist := parse()
 
 	slices.Sort(llist)
 	slices.Sort(rlist)
 
-	total := 0
+	res := 0
 	for i := range llist {
 		diff := llist[i] - rlist[i]
 		if diff < 0 {
 			diff = -diff
 		}
-		total += diff
+		res += diff
 	}
 
-	return total
+	return res
 }
 
 func part2() int {
-	llist, rlist := parse("./input/2024/01.txt")
+	llist, rlist := parse()
 
 	freq := map[int]int{}
 	freq = make(map[int]int)
@@ -76,16 +73,14 @@ func part2() int {
 		}
 	}
 
-	sum := 0
+	res := 0
 	for _, v := range llist {
-		sum += v * freq[v]
+		res += v * freq[v]
 	}
 
-	return sum
+	return res
 }
 
 func main() {
-	print(part1())
-	print("\n")
-	print(part2())
+	solution.Answer(part1, part2)
 }
